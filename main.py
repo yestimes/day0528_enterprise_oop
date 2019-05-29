@@ -28,7 +28,7 @@ from boss import Boss
 if __name__ == '__main__':
     print("Hello Word")
     boss = Boss()
-    boss.set_name("Shubin GUO")
+    boss.set_name("Big Boss ")
 
     company = Enterprise()
 
