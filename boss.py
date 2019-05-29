@@ -46,8 +46,8 @@ class Boss:
         :return: company instance
         '''
 
-        print("开工啦，企业剩余资金%f, 雇佣员工%d人, 工作量剩余%d \n"
-              % (company.get_found(), len(company.get_employee_list()), company.get_workload()))
+        print("开工啦，企业剩余资金%f, 初始工作量%d \n"
+              % (company.get_found(),  company.get_workload()))
         # 招募员工
         self.employ(company)
         # 开除员工
@@ -57,21 +57,25 @@ class Boss:
 
         # 工作量
         works_sum = 0
-        #工资支出
+        # 工资支出
         fee_sum = 0
         for employee in employee_list:
             works_sum += employee.get_required_work()
-            fee_sum += employee.get_salary()
+            fee_sum += employee.get_salary() * 12
+        print("\t当年员工完成工作总量为%d \n" %(works_sum))
+
+        # 计算管理费
+        fee_boss = self.manage(company)
+        print("\t当年员工薪资支出为%f, 管理层支出为%f \n" %(fee_sum, fee_boss))
+        fee_sum += fee_boss
 
 
-        #计算管理费
-
-        fee_sum += self.manage(company)
-
-        #修改公司资金
+        # 修改公司资金
         # 1 计算利润 100 工作量=> 5000收入
-        profit = works_sum * 50
+        profit = works_sum * 50.0
         company.set_found( company.get_found() + profit )
+
+
 
         # 2 计算支出
         # 不进行非正数校验 ==> 负债也不能拖欠农民工工资呀
@@ -91,10 +95,10 @@ class Boss:
         else:
             pass
 
+        # print("\t当年完成工作总量%d, 利润%f,  薪水支出%f \n" % (works_sum, profit, fee_sum))
+
         print("年终啦，企业剩余资金%f, 雇佣员工%d人, 工作量剩余%d \n"
               %(company.get_found(), len(company.get_employee_list()), company.get_workload()))
-
-
 
     # 返回管理费
     '''
